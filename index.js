@@ -1,6 +1,7 @@
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
-const infoDisplayer = document.querySelector("#infoDisplayer");
+const downloadBtn = document.querySelector("#downloadBtn");
+const uploadBtn = document.querySelector("#uploadBtn");
 
 canvas.width = WIDTH;
 canvas.height = HEIGHT;
@@ -38,6 +39,29 @@ const displayPopulationInformation = () => {
   ctx.fillText(text, 0, 24);
   ctx.fillStyle = "black";
 };
+
+const downloadBestNN = function () {
+  const a = document.createElement("a");
+  const bestBird = population.getBestEver();
+  const blob = new Blob([JSON.stringify(bestBird.neuralNetwork)], {
+    type: "plain/text",
+  });
+  a.href = URL.createObjectURL(blob);
+  a.download = "best_bird.json";
+  a.click();
+};
+downloadBtn.addEventListener("click", downloadBestNN);
+
+const uploadParent = function (event) {
+  const uploadedFile = event.target.files[0];
+  const reader = new FileReader();
+  reader.readAsText(uploadedFile);
+  reader.onload = function () {
+    const parentNN = NeuralNetwork.deserialize(this.result);
+    population.repopulateFromParent(MUT_RATE, parentNN);
+  };
+};
+uploadBtn.addEventListener("change", uploadParent);
 
 const frame = function () {
   if (frames % 50 === 0) {
