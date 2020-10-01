@@ -101,3 +101,27 @@ NeuralNetwork.deserialize = function (json) {
   nn.b2 = new Matrix(nnSaved.b2.data);
   return nn;
 };
+
+NeuralNetwork.prototype.mutate = function (mutationRate) {
+  const mutationFunc = (val) => {
+    const rand = random(0, 1);
+    if (rand < mutationRate) {
+      return val + random(-1, 2);
+    }
+    return val;
+  };
+  const w1 = this.w1.map(mutationFunc);
+  const w2 = this.w2.map(mutationFunc);
+  const b1 = this.b1.map(mutationFunc);
+  const b2 = this.b2.map(mutationFunc);
+  const mutatedNN = new NeuralNetwork([
+    this.i_units,
+    this.h_units,
+    this.o_units,
+  ]);
+  mutatedNN.w1 = w1;
+  mutatedNN.w2 = w2;
+  mutatedNN.b1 = b1;
+  mutatedNN.b2 = b2;
+  return mutatedNN;
+};

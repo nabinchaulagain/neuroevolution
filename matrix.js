@@ -2,6 +2,7 @@ function Matrix(data) {
   this.data = data;
   this.shape = [this.data.length, this.data[0].length];
 }
+
 Matrix.prototype._binaryOperation = function (mat2, operator) {
   if (
     this.data.length !== mat2.data.length ||
@@ -104,4 +105,14 @@ Matrix.randomInit = function (xdim, ydim, low, high) {
 Matrix.prototype.copy = function () {
   const copyData = this.data.map((row) => [...row]);
   return new Matrix(copyData);
+};
+
+Matrix.prototype.map = function (func) {
+  const newData = this.data.map((col) => col.map((_) => 0));
+  for (let i = 0; i < this.data.length; i++) {
+    for (let j = 0; j < this.data[0].length; j++) {
+      newData[i][j] = func(this.data[i][j]);
+    }
+  }
+  return new Matrix(newData);
 };
