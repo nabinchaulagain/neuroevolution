@@ -5,6 +5,7 @@ function Population(size) {
   for (let i = 0; i < this.size; i++) {
     this.members.push(new Bird());
   }
+  this.generation = 1;
 }
 
 Population.prototype.remove = function (index) {
@@ -12,6 +13,7 @@ Population.prototype.remove = function (index) {
 };
 
 Population.prototype.repopulate = function (mutationRate) {
+  this.generation++;
   this.calcFitness();
   for (let i = 0; i < this.size; i++) {
     const parent = this.getParent();

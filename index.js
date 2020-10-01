@@ -1,5 +1,6 @@
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
+const infoDisplayer = document.querySelector("#infoDisplayer");
 
 canvas.width = WIDTH;
 canvas.height = HEIGHT;
@@ -26,6 +27,18 @@ const getClosestPipe = (bird) => {
   }
 };
 
+const displayPopulationInformation = () => {
+  const text = `
+  Alive: ${population.members.length},
+  Score: ${Math.floor((population.members[0].score * FRAME_INTERVAL) / 1000)},
+  Generation: ${population.generation}
+  `;
+  ctx.fillStyle = "green";
+  ctx.font = "20px Times New Roman";
+  ctx.fillText(text, 0, 24);
+  ctx.fillStyle = "black";
+};
+
 const frame = function () {
   if (frames % 50 === 0) {
     pipes = removeUneccessaryPipes(pipes);
@@ -40,7 +53,6 @@ const frame = function () {
   pipes.forEach((pipe) => {
     pipe.update();
     pipe.draw(ctx);
-
     population.members.forEach((bird, index) => {
       if (pipe.didCollide(bird) || bird.y > HEIGHT || bird.y < 0) {
         population.remove(index);
@@ -54,6 +66,8 @@ const frame = function () {
     gameInterval = setInterval(frame, FRAME_INTERVAL);
     pipes = [];
     population.repopulate(MUT_RATE);
+  } else {
+    displayPopulationInformation();
   }
 };
 // const showGameOver = function () {
