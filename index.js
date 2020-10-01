@@ -59,6 +59,8 @@ const uploadParent = function (event) {
   reader.onload = function () {
     const parentNN = NeuralNetwork.deserialize(this.result);
     population.repopulateFromParent(MUT_RATE, parentNN);
+    frames = 0;
+    pipes = [];
   };
 };
 uploadBtn.addEventListener("change", uploadParent);
