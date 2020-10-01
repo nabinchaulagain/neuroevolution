@@ -5,28 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Neuroevolution</title>
+    <link rel="stylesheet" href="index.css" />
   </head>
-  <body style="text-align: center">
-    <canvas
-      id="canvas"
-      style="width: 500px; height: 400px; border: 1px solid black; margin: 64px"
-    ></canvas>
+  <body>
+    <canvas id="canvas"></canvas>
     <div>
       <button id="downloadBtn">Download the best bird</button>
-      <form style="display: inline-block">
-        <label
-          for="uploadBtn"
-          style="
-            font: 13.33px Arial;
-            text-decoration: none;
-            background-color: #eeeeee;
-            color: #333333;
-            padding: 2px 6px;
-            border: 1px solid black;
-          "
-          >Upload parent</label
-        >
-        <input id="uploadBtn" type="file" style="display: none" />
+      <form>
+        <label for="uploadBtn" class="btn">Upload parent</label>
+        <input id="uploadBtn" type="file" />
       </form>
     </div>
     <script src="config.js"></script>
