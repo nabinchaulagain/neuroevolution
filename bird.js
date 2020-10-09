@@ -5,7 +5,7 @@ function Bird() {
   this.gravity = 0.5;
   this.lift = 7;
   this.velocity = 0;
-  this.neuralNetwork = new NeuralNetwork([6, 4, 1]);
+  this.neuralNetwork = new NeuralNetwork([5, 4, 1]);
   this.score = 0;
   this.fitness = 0;
 }
@@ -28,8 +28,7 @@ Bird.prototype.goUp = function () {
 
 Bird.prototype.decide = function (closestPipe) {
   const inputs = new Matrix([
-    [this.velocity / 100],
-    [this.x / WIDTH], //x position of bird
+    [this.velocity / 100], //velocity of bird
     [this.y / HEIGHT], //y position of bird
     [closestPipe.x / WIDTH], //x position of pipes
     [closestPipe.topHeight / HEIGHT], //height of top pipe

@@ -35,7 +35,7 @@ Population.prototype.repopulateFromParent = function (mutationRate, parentNN) {
   for (let i = 1; i < this.size; i++) {
     const bird = new Bird();
     bird.neuralNetwork = parentNN.mutate(mutationRate);
-    this.members.push(new Bird());
+    this.members.push(bird);
   }
 };
 
